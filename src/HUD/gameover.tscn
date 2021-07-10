@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/HUD/gameover.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="restart" type="Button" parent="."]
+margin_left = 405.866
+margin_top = 304.871
+margin_right = 619.866
+margin_bottom = 374.871
+text = "RESTART"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exitgame" type="Button" parent="."]
+margin_left = 404.944
+margin_top = 392.78
+margin_right = 623.944
+margin_bottom = 464.78
+text = "Exit"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 437.836
+margin_top = 234.475
+margin_right = 581.836
+margin_bottom = 314.475
+text = "YOU DIE!
+"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="exitgame" to="." method="_on_exitgame_pressed"]

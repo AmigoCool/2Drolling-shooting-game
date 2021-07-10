@@ -1,0 +1,140 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/pleyer1.png" type="Texture" id=1]
+[ext_resource path="res://assets/walk2.png" type="Texture" id=2]
+[ext_resource path="res://assets/walk1.png" type="Texture" id=3]
+[ext_resource path="res://assets/pleyer fire.png" type="Texture" id=4]
+[ext_resource path="res://src/entity/player/player.gd" type="Script" id=5]
+[ext_resource path="res://assets/jump.png" type="Texture" id=6]
+[ext_resource path="res://assets/gun-gunshot-01.mp3" type="AudioStream" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9.41461, 25.9208 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "fire",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "walk",
+"speed": 30.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 14.7927, 28.3891 )
+
+[node name="player" type="KinematicBody2D"]
+position = Vector2( 0, -46.3791 )
+collision_mask = 10
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.03844, 17.6117 )
+shape = SubResource( 1 )
+
+[node name="Viewnow" type="Camera2D" parent="."]
+position = Vector2( -0.33371, 45.7183 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="player" type="Sprite" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.0472791, 12.6074 )
+scale = Vector2( 0.108618, 0.138535 )
+frames = SubResource( 2 )
+animation = "idle"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, -1.12247 )
+collision_layer = 0
+collision_mask = 1026
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.936432, 17.6051 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -0.643524, -11.0494 )
+current = true
+
+[node name="Label2" type="Label" parent="Camera2D"]
+margin_left = -16.0345
+margin_top = -276.558
+margin_right = 23.9655
+margin_bottom = -262.558
+text = "00:00"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D"]
+margin_left = -25.4784
+margin_top = -295.772
+margin_right = 29.5216
+margin_bottom = -275.772
+text = "Time"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Camera2D"]
+margin_left = 461.555
+margin_top = -292.601
+margin_right = 502.555
+margin_bottom = -278.601
+text = "SCORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Camera2D"]
+margin_left = 463.442
+margin_top = -277.499
+margin_right = 503.442
+margin_bottom = -263.499
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
